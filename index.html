@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#667eea">
+    <title>حاسبة العمر</title>
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoi2K3Yp9iz2KjYqSDYp9mE2LnZhdixIiwic2hvcnRfbmFtZSI6Itit2KfYs9io2KnYp9mE2LnZhdixIiwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiM2NjdlZWEiLCJ0aGVtZV9jb2xvciI6IiM2NjdlZWEiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCM2FXUjBhRDBpTVRJNElpQm9aV2xuYUhROUlqRXlPQ0lpSUhacFpYZENiM2c5SWpBZ01DQXhNamdnTVRJNElpQm1hV3hzUFNJak5qWTNaV1ZoSWlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M00zVnZjbWN2TWpBd01DOXpkbWNpUGp4amFYSmpiR1VnWTNnOUlqWTBJaUJqZVQwaU5qUWlJSEk5SWpVd0lpQm1hV3hzUFNJak1qQXpNVFl6SWk4K1BIUmxlSFFnZUQwaU5qUWlJSGs5SWprd0lpQjBaWGgwTFdGdVkyaHZjajBpYldsa1pHeGxJaUJtYVd4c1BTSWpabVptSWlCbWIyNTBMWE5wZW1VOUlqSTBJaUErOEorWXNqd3ZkR1Y0ZEQ0OEwzTjJaejQ9Iiwic2l6ZXMiOiIxOTJ4MTkyIiwidHlwZSI6ImltYWdlL3N2Zyt4bWwifV19">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIGZpbGw9IiM2NjdlZWEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNjQiIGN5PSI2NCIgcj0iNTAiIGZpbGw9IiMyMDMxNjMiLz48dGV4dCB4PSI2NCIgeT0iOTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNmZmYiIGZvbnQtc2l6ZT0iMjQiPvCfmLI8L3RleHQ+PC9zdmc+">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .result-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .input-focus:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .mobile-app {
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .touch-friendly {
+            min-height: 48px;
+            font-size: 16px;
+        }
+        .no-select {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+        .bounce-in {
+            animation: bounceIn 0.6s ease-out;
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="gradient-bg mobile-app py-4 px-4 no-select">
+    <div class="max-w-sm mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-6">
+            <div class="text-5xl mb-3">🎂</div>
+            <h1 class="text-2xl font-bold text-white mb-2">حاسبة العمر</h1>
+            <p class="text-white/80 text-sm">احسب عمرك بالتفصيل</p>
+        </div>
+
+        <!-- Main Card -->
+        <div class="bg-white rounded-2xl p-6 card-shadow mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">أدخل تاريخ ميلادك</h2>
+            
+            <!-- Birth Date Inputs -->
+            <div class="space-y-4 mb-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">اليوم</label>
+                    <select id="day" class="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none input-focus transition-all duration-300 touch-friendly">
+                        <option value="">اختر اليوم</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">الشهر</label>
+                    <select id="month" class="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none input-focus transition-all duration-300 touch-friendly">
+                        <option value="">اختر الشهر</option>
+                        <option value="1">يناير</option>
+                        <option value="2">فبراير</option>
+                        <option value="3">مارس</option>
+                        <option value="4">أبريل</option>
+                        <option value="5">مايو</option>
+                        <option value="6">يونيو</option>
+                        <option value="7">يوليو</option>
+                        <option value="8">أغسطس</option>
+                        <option value="9">سبتمبر</option>
+                        <option value="10">أكتوبر</option>
+                        <option value="11">نوفمبر</option>
+                        <option value="12">ديسمبر</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">السنة</label>
+                    <input type="number" id="year" placeholder="مثال: 1990" min="1900" max="2024" 
+                           class="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none input-focus transition-all duration-300 touch-friendly">
+                </div>
+            </div>
+
+            <!-- Calculate Button -->
+            <button onclick="calculateAge()" 
+                    class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-4 px-6 rounded-lg hover:from-purple-600 hover:to-pink-600 active:scale-95 transition-all duration-300 shadow-lg touch-friendly">
+                احسب العمر 🎯
+            </button>
+        </div>
+
+        <!-- Results Card -->
+        <div id="results" class="hidden">
+            <div class="result-card rounded-2xl p-6 text-white card-shadow bounce-in">
+                <h3 class="text-xl font-bold text-center mb-6">🎉 نتيجة حساب العمر</h3>
+                
+                <div class="grid grid-cols-3 gap-4 mb-6">
+                    <div class="text-center">
+                        <div id="years" class="text-2xl font-bold">0</div>
+                        <div class="text-sm opacity-90">سنة</div>
+                    </div>
+                    <div class="text-center">
+                        <div id="months" class="text-2xl font-bold">0</div>
+                        <div class="text-sm opacity-90">شهر</div>
+                    </div>
+                    <div class="text-center">
+                        <div id="days" class="text-2xl font-bold">0</div>
+                        <div class="text-sm opacity-90">يوم</div>
+                    </div>
+                </div>
+
+                <!-- Additional Info -->
+                <div class="bg-white/20 rounded-lg p-4 space-y-2">
+                    <div class="flex justify-between">
+                        <span>إجمالي الأيام:</span>
+                        <span id="totalDays" class="font-semibold">0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>إجمالي الأسابيع:</span>
+                        <span id="totalWeeks" class="font-semibold">0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>إجمالي الساعات:</span>
+                        <span id="totalHours" class="font-semibold">0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>إجمالي الدقائق:</span>
+                        <span id="totalMinutes" class="font-semibold">0</span>
+                    </div>
+                </div>
+
+                <!-- Next Birthday -->
+                <div class="mt-4 text-center">
+                    <div class="text-sm opacity-90">عيد ميلادك القادم بعد:</div>
+                    <div id="nextBirthday" class="font-semibold text-lg">-</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <div id="error" class="hidden bg-red-500 text-white p-4 rounded-lg text-center">
+            يرجى إدخال تاريخ ميلاد صحيح
+        </div>
+
+        <!-- Install Prompt -->
+        <div id="installPrompt" class="hidden bg-blue-500 text-white p-4 rounded-lg text-center mt-4">
+            <p class="mb-3">📱 أضف التطبيق للشاشة الرئيسية</p>
+            <button onclick="installApp()" class="bg-white text-blue-500 px-4 py-2 rounded-lg font-semibold">
+                تثبيت التطبيق
+            </button>
+            <button onclick="hideInstallPrompt()" class="mr-2 text-white/80 underline">
+                لاحقاً
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // PWA Installation
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installPrompt').classList.remove('hidden');
+        });
+
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    }
+                    deferredPrompt = null;
+                    hideInstallPrompt();
+                });
+            }
+        }
+
+        function hideInstallPrompt() {
+            document.getElementById('installPrompt').classList.add('hidden');
+        }
+
+        // Prevent zoom on input focus (iOS)
+        document.addEventListener('touchstart', function() {}, true);
+
+        // Populate days dropdown
+        function populateDays() {
+            const daySelect = document.getElementById('day');
+            for (let i = 1; i <= 31; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i;
+                daySelect.appendChild(option);
+            }
+        }
+
+        // Update days based on selected month and year
+        function updateDays() {
+            const month = parseInt(document.getElementById('month').value);
+            const year = parseInt(document.getElementById('year').value);
+            const daySelect = document.getElementById('day');
+            
+            if (month && year) {
+                const daysInMonth = new Date(year, month, 0).getDate();
+                const currentDay = parseInt(daySelect.value);
+                
+                // Clear and repopulate days
+                daySelect.innerHTML = '<option value="">اختر اليوم</option>';
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.textContent = i;
+                    if (i === currentDay && i <= daysInMonth) {
+                        option.selected = true;
+                    }
+                    daySelect.appendChild(option);
+                }
+            }
+        }
+
+        function calculateAge() {
+            const day = parseInt(document.getElementById('day').value);
+            const month = parseInt(document.getElementById('month').value);
+            const year = parseInt(document.getElementById('year').value);
+            
+            const errorDiv = document.getElementById('error');
+            const resultsDiv = document.getElementById('results');
+            
+            // Hide previous results and errors
+            errorDiv.classList.add('hidden');
+            resultsDiv.classList.add('hidden');
+            
+            // Validate inputs
+            if (!day || !month || !year) {
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+            
+            const birthDate = new Date(year, month - 1, day);
+            const today = new Date();
+            
+            // Check if birth date is valid and not in the future
+            if (birthDate > today || birthDate.getFullYear() !== year || birthDate.getMonth() !== month - 1 || birthDate.getDate() !== day) {
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+            
+            // Calculate age
+            let ageYears = today.getFullYear() - birthDate.getFullYear();
+            let ageMonths = today.getMonth() - birthDate.getMonth();
+            let ageDays = today.getDate() - birthDate.getDate();
+            
+            // Adjust for negative days
+            if (ageDays < 0) {
+                ageMonths--;
+                const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                ageDays += lastMonth.getDate();
+            }
+            
+            // Adjust for negative months
+            if (ageMonths < 0) {
+                ageYears--;
+                ageMonths += 12;
+            }
+            
+            // Calculate totals
+            const totalDays = Math.floor((today - birthDate) / (1000 * 60 * 60 * 24));
+            const totalWeeks = Math.floor(totalDays / 7);
+            const totalHours = totalDays * 24;
+            const totalMinutes = totalHours * 60;
+            
+            // Calculate next birthday
+            let nextBirthday = new Date(today.getFullYear(), month - 1, day);
+            if (nextBirthday < today) {
+                nextBirthday.setFullYear(today.getFullYear() + 1);
+            }
+            const daysToNextBirthday = Math.ceil((nextBirthday - today) / (1000 * 60 * 60 * 24));
+            
+            // Display results
+            document.getElementById('years').textContent = ageYears;
+            document.getElementById('months').textContent = ageMonths;
+            document.getElementById('days').textContent = ageDays;
+            document.getElementById('totalDays').textContent = totalDays.toLocaleString();
+            document.getElementById('totalWeeks').textContent = totalWeeks.toLocaleString();
+            document.getElementById('totalHours').textContent = totalHours.toLocaleString();
+            document.getElementById('totalMinutes').textContent = totalMinutes.toLocaleString();
+            document.getElementById('nextBirthday').textContent = daysToNextBirthday + ' يوم';
+            
+            resultsDiv.classList.remove('hidden');
+        }
+
+        // Event listeners
+        document.getElementById('month').addEventListener('change', updateDays);
+        document.getElementById('year').addEventListener('input', updateDays);
+
+        // Initialize
+        populateDays();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'969dc123a3721224',t:'MTc1NDMwNzM1OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
